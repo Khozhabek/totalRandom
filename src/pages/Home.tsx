@@ -67,7 +67,6 @@ export const Home = () => {
     }
 
     if (!window.location.search) {
-      console.log(111);
       fetchPizzas();
     }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);

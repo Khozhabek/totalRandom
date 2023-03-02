@@ -16,6 +16,11 @@ type ListType = {
   sortProperty: string;
 };
 
+type PopupClick = MouseEvent & {
+  path: Node[]
+}
+
+
 export const Sort: React.FC = () => {
   const sort = useSelector(selectSort);
   const dispatch = useDispatch();
@@ -28,8 +33,9 @@ export const Sort: React.FC = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.path.includes(sortRef.current)) {
         setOpen(false);
       }
     };
