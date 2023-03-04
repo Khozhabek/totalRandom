@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import qs from 'qs';
 import { useNavigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Categories } from '../components/Categories';
 import { Sort, list } from '../components/Sort';
 import { PizzaBlock } from '../components/Pizzablock/PizzaBlock';
@@ -14,10 +14,11 @@ import {
   setFilters,
 } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../redux/store';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isMounted = useRef(false);
 
   const { items, status } = useSelector(selectPizzaData);
