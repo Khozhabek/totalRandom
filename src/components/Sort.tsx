@@ -1,33 +1,36 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSort, selectSort } from '../redux/slices/filterSlice';
+import { Sort as SortType ,setSort, selectSort, sortPropertyEnum } from '../redux/slices/filterSlice';
 
-export const list: ListType[] = [
-  { name: 'популярности (DESC)', sortProperty: 'rating' },
-  { name: 'популярности (ASC)', sortProperty: '-rating' },
-  { name: 'цене (DESC)', sortProperty: 'price' },
-  { name: 'цене (ASC)', sortProperty: '-price' },
-  { name: 'алфавиту (DESC)', sortProperty: 'title' },
-  { name: 'алфавиту (ASC)', sortProperty: '-title' },
-];
-
-type ListType = {
+type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: sortPropertyEnum;
 };
 
 type PopupClick = MouseEvent & {
   path: Node[]
 }
 
+type SortPopupProps = {
+  value: SortType;
+}
 
-export const Sort: React.FC = () => {
+export const list: SortItem[] = [
+  { name: 'популярности (DESC)', sortProperty: sortPropertyEnum.RATING_DESC },
+  { name: 'популярности (ASC)', sortProperty: sortPropertyEnum.RATING_ASC },
+  { name: 'цене (DESC)', sortProperty: sortPropertyEnum.PRICE_DESC },
+  { name: 'цене (ASC)', sortProperty: sortPropertyEnum.PRICE_ASC },
+  { name: 'алфавиту (DESC)', sortProperty: sortPropertyEnum.TITLE_DESC },
+  { name: 'алфавиту (ASC)', sortProperty: sortPropertyEnum.TITLE_ASC },
+];
+
+export const Sort: React.FC<SortPopupProps>= () => {
   const sort = useSelector(selectSort);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickListItem = (obj: ListType) => {
+  const onClickListItem = (obj: SortItem) => {
     dispatch(setSort(obj));
     setOpen(false);
   };

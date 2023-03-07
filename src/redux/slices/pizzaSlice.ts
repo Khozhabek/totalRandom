@@ -19,6 +19,14 @@ enum Status {
   ERROR = 'error',
 }
 
+export type SearchPizzaParams = {
+  sortBy: string;
+  order: string;
+  category: string;
+  search: string;
+  currentPage: string;
+};
+
 type Pizza = {
   category: number;
   id: string;

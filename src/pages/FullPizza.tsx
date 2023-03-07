@@ -13,7 +13,7 @@ export const FullPizza: React.FC = () => {
   console.log(navigate);
 
   useEffect(() => {
-    async function getPizza() {
+    async function fetchPizza() {
       try {
         const { data } = await axios.get(
           `https://63c90ba6904f040a9654e7f8.mockapi.io/items/${id}`,
@@ -24,11 +24,11 @@ export const FullPizza: React.FC = () => {
         navigate('/');
       }
     }
-    getPizza();
+    fetchPizza();
   }, []);
 
   if (!pizza) {
-    return <>loading</>;
+    return <>loading...</>;
   }
 
   return (

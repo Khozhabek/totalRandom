@@ -7,7 +7,9 @@ import { clearItem, selectCart } from '../redux/slices/cartSlice';
 export const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
+
   const totalCount = items.reduce((acc: number, item: any) => acc + item.count, 0);
+  
   const onClickClear = () => {
     window.confirm('Are you sure you want to clear the cart?');
     dispatch(clearItem());
