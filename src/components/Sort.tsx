@@ -1,6 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Sort as SortType ,setSort, selectSort, sortPropertyEnum } from '../redux/slices/filterSlice';
+import { useState, useRef, useEffect, memo } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  Sort as SortType,
+  setSort,
+  sortPropertyEnum,
+} from '../redux/slices/filterSlice';
 
 type SortItem = {
   name: string;
@@ -8,12 +12,12 @@ type SortItem = {
 };
 
 type PopupClick = MouseEvent & {
-  path: Node[]
-}
+  path: Node[];
+};
 
 type SortPopupProps = {
   value: SortType;
-}
+};
 
 export const list: SortItem[] = [
   { name: 'популярности (DESC)', sortProperty: sortPropertyEnum.RATING_DESC },
@@ -24,8 +28,7 @@ export const list: SortItem[] = [
   { name: 'алфавиту (ASC)', sortProperty: sortPropertyEnum.TITLE_ASC },
 ];
 
-export const Sort: React.FC<SortPopupProps>= () => {
-  const sort = useSelector(selectSort);
+export const Sort: React.FC<SortPopupProps> = memo(({ value }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
@@ -61,7 +64,7 @@ export const Sort: React.FC<SortPopupProps>= () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sort.name}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -71,7 +74,7 @@ export const Sort: React.FC<SortPopupProps>= () => {
                 key={i}
                 onClick={() => onClickListItem(obj)}
                 className={
-                  sort.sortProperty === obj.sortProperty ? 'active' : ''
+                  value.sortProperty === obj.sortProperty ? 'active' : ''
                 }>
                 {obj.name}
               </li>
@@ -81,4 +84,4 @@ export const Sort: React.FC<SortPopupProps>= () => {
       )}
     </div>
   );
-};
+});

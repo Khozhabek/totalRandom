@@ -235,19 +235,8 @@ body {
         &:disabled {
           opacity: 0.4;
           border-color: #787878;
-
-          &:active {
-            transform: none;
-          }
-
-          &:hover {
-            background-color: transparent;
-
-            svg path {
-              fill: #787878;
-            }
-          }
-
+          pointer-events: none;
+          
           svg path {
             fill: #787878;
           }
