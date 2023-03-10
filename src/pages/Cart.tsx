@@ -1,18 +1,22 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import CartItem from '../components/CartItem';
-import CartEmpty from '../components/CartEmpty';
-import { clearItem, selectCart } from '../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const Cart: React.FC = () => {
+import { CartItem, CartEmpty } from '../components';
+
+import { selectCart } from '../redux/cart/selectors';
+import { clearItems } from '../redux/cart/slice';
+
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
 
-  const totalCount = items.reduce((acc: number, item: any) => acc + item.count, 0);
-  
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+
   const onClickClear = () => {
-    window.confirm('Are you sure you want to clear the cart?');
-    dispatch(clearItem());
+    if (window.confirm('Очистить корзину?')) {
+      dispatch(clearItems());
+    }
   };
 
   if (!totalPrice) {
@@ -89,7 +93,7 @@ export const Cart: React.FC = () => {
         </div>
         <div className="content__items">
           {items.map((item: any) => (
-            <CartItem {...item} key={item.id} />
+            <CartItem key={item.id} {...item} />
           ))}
         </div>
         <div className="cart__bottom">
@@ -104,9 +108,7 @@ export const Cart: React.FC = () => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <Link
-              to="/"
-              className="button button--outline button--add go-back-btn">
+            <Link to="/" className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"
@@ -132,3 +134,5 @@ export const Cart: React.FC = () => {
     </div>
   );
 };
+
+export default Cart;
