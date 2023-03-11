@@ -11,10 +11,13 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
 
-  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0,
+  );
 
   const onClickClear = () => {
-    if (window.confirm('Очистить корзину?')) {
+    if (window.confirm('Do you want to empty your cart?')) {
       dispatch(clearItems());
     }
   };
@@ -53,7 +56,7 @@ const Cart: React.FC = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"></path>
             </svg>
-            Корзина
+            Cart
           </h2>
           <div onClick={onClickClear} className="cart__clear">
             <svg
@@ -88,7 +91,7 @@ const Cart: React.FC = () => {
                 strokeLinejoin="round"></path>
             </svg>
 
-            <span>Очистить корзину</span>
+            <span>Empty Cart</span>
           </div>
         </div>
         <div className="content__items">
@@ -100,15 +103,17 @@ const Cart: React.FC = () => {
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Всего пицц: <b>{totalCount} шт.</b>{' '}
+              Total pizzas: <b>{totalCount} pcs.</b>{' '}
             </span>
             <span>
               {' '}
-              Сумма заказа: <b>{totalPrice} ₽</b>{' '}
+              Order Price: <b>{totalPrice} $</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <Link to="/" className="button button--outline button--add go-back-btn">
+            <Link
+              to="/"
+              className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"
@@ -123,10 +128,10 @@ const Cart: React.FC = () => {
                   strokeLinejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Come back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Pay now</span>
             </div>
           </div>
         </div>

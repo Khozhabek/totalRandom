@@ -49,51 +49,51 @@ const Home: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
-  // Если изменили параметры и был первый рендер
+  // if you changed parameters and there was first render
   React.useEffect(() => {
-    if (isMounted.current) {
-      const params = {
-        categoryId: categoryId > 0 ? categoryId : null,
-        sortProperty: sort.sortProperty,
-        currentPage,
-      };
+    // if (isMounted.current) {
+    //   const params = {
+    //     categoryId: categoryId > 0 ? categoryId : null,
+    //     sortProperty: sort.sortProperty,
+    //     currentPage,
+    //   };
 
-      const queryString = qs.stringify(params, { skipNulls: true });
+    //   const queryString = qs.stringify(params, { skipNulls: true });
 
-      navigate(`/?${queryString}`);
-    }
+    //   navigate(`/?${queryString}`);
+    // }
 
-    const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-    const sortObj = list.find((obj) => obj.sortProperty === params.sortBy);
-    dispatch(
-      setFilters({
-        searchValue: params.search,
-        categoryId: Number(params.category),
-        currentPage: Number(params.currentPage),
-        sort: sortObj || list[0],
-      }),
-    );
+    // const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+    // const sortObj = list.find((obj) => obj.sortProperty === params.sortBy);
+    // dispatch(
+    //   setFilters({
+    //     searchValue: params.search,
+    //     categoryId: Number(params.category),
+    //     currentPage: Number(params.currentPage),
+    //     sort: sortObj || list[0],
+    //   }),
+    // );
 
     getPizzas();
     // isMounted.current = true;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  // Парсим параметры при первом рендере
-  React.useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
-      const sort = list.find((obj) => obj.sortProperty === params.sortBy);
-      dispatch(
-        setFilters({
-          searchValue: params.search,
-          categoryId: Number(params.category),
-          currentPage: Number(params.currentPage),
-          sort: sort || list[0],
-        }),
-      );
-    }
-    isMounted.current = true;
-  }, []);
+  // Parsing parameters in first render
+  // React.useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+  //     const sort = list.find((obj) => obj.sortProperty === params.sortBy);
+  //     dispatch(
+  //       setFilters({
+  //         searchValue: params.search,
+  //         categoryId: Number(params.category),
+  //         currentPage: Number(params.currentPage),
+  //         sort: sort || list[0],
+  //       }),
+  //     );
+  //   }
+  //   isMounted.current = true;
+  // }, []);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -104,11 +104,11 @@ const Home: React.FC = () => {
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort value={sort} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       {status === 'error' ? (
         <div className="content__error-info">
-          <h2>Произошла ошибка 😕</h2>
-          <p>К сожалению, не удалось получить питсы. Попробуйте повторить попытку позже.</p>
+          <h2>An error has occurred 😕</h2>
+          <p>Unfortunately, it was not possible to get pizzas. Please try again later.</p>
         </div>
       ) : (
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>

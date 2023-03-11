@@ -15,7 +15,7 @@ type PizzaBlockProps = {
   rating: number;
 };
 
-const typeNames = ['тонкое', 'традиционное'];
+const typeNames = ['thin', 'traditional'];
 
 export const PizzaBlock: React.FC<PizzaBlockProps> = ({
   id,
@@ -69,13 +69,13 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 key={size}
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? 'active' : ''}>
-                {size} см.
+                {size} cm.
               </li>
             ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+          <div className="pizza-block__price">from {price} $</div>
           <div
             onClick={onClickAdd}
             className="button button--outline button--add">
@@ -90,7 +90,7 @@ export const PizzaBlock: React.FC<PizzaBlockProps> = ({
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Add</span>
             {addedCount > 0 && <i>{addedCount}</i>}
           </div>
         </div>

@@ -6,10 +6,10 @@ export const NotFoundBlock: React.FC = () => {
       <h1>
         <span>🙁</span>
         <br />
-        Ничего не найдено
+        Nothing found
       </h1>
       <p className={styles.description}>
-        К сожелению ты идешь домой, в Олд Траффорд:)
+        Unfortunately, you are going home to Old Trafford :)
       </p>
     </div>
   );

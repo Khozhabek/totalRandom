@@ -43,7 +43,7 @@ export const Search = () => {
         onChange={handleOnChange}
         type="text"
         className={styles.input}
-        placeholder="Поиск пиццы ..."
+        placeholder="find pizza ..."
         value={value}
       />
       {value && (
